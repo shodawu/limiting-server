@@ -16,6 +16,8 @@
 * 主程序同一時間時只執行一項任務，任務有兩種，重置可接受的request數、取得目前request量，這兩個任務都會修改「request數」。 
 * 另有兩個並行程序，一個為定時發出「重置可接受的request數」要求，一個為監聽並回傳「取得目前request量」。
 * 由於主程序的「request數」需處理race condition。使用non-blocking chan來實現request數被修改的排序。
+* 當chan接收到指令的時候，都固定執行「修改request數」，但執行的內容不一定，因此將此行為抽象為介面。
+  於「重置可接受的request數」、「取得目前request量」實作。
 * [部署圖](P1.png)
 * [類圖](P2.png)
  
